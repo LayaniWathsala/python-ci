@@ -1,9 +1,21 @@
-machine:
-  python:
-    version: 3.5.2
-  dependencies:
-    override:
-      - pip install -r requirements.txt
-  test:
-    override:
-      - nosetests test/math_test.py
+version: 2 
+jobs: 
+  build:
+    working_directory: ~/circleci-django
+    docker: 
+      - image: circleci/python:3.6.4
+        environment: 
+          PIPENV_VENV_IN_PROJECT: true
+    steps:
+      - checkout 
+      - run: sudo chown -R circleci:circleci /usr/local/bin
+      - run: sudo chown -R circleci:circleci /usr/local/lib/python3.6/site-packages
+      - run: pip install -r requirements.txt
+      - run:
+          command: |
+            nosetests test/math_test.py
+      - store_test_results: 
+          path: test-results
+      - store_artifacts: 
+          path: test-results
+          destination: tr1
