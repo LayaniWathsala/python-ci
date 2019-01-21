@@ -1,7 +1,7 @@
 version: 2 
 jobs: 
   build:
-    working_directory: ~/circleci-django
+    working_directory: ~/python-ci
     docker: 
       - image: circleci/python:3.6.4
         environment: 
