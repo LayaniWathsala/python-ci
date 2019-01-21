@@ -14,7 +14,12 @@ jobs:
           command: |
             sudo pip install pipenv
             pipenv install
-      - run: pip install -r requirements.txt
+      - run: 
+          command: |
+            mkdir -p ./venv
+            virtualenv ./venv
+            . venv/bin/activate
+            pip install -r requirements.txt
       - run:
           command: |
             nosetests test/math_test.py
