@@ -14,15 +14,16 @@ jobs:
           command: |
             sudo pip install pipenv
             pipenv install
-      - run: 
+       - run:
           command: |
-            mkdir -p ./venv
-            virtualenv ./venv
-            . venv/bin/activate
-            pip install -r requirements.txt
-            nosetests test/math_test.py
-      - store_test_results: 
+            sudo pip install pipenv
+            pipenv install
+            pipenv install -r requirements.txt
+      - run:
+          command: |
+            pipenv run "nosetests test/math_test.py"
+      - store_test_results: # Upload test results for display in Test Summary: https://circleci.com/docs/2.0/collect-test-data/
           path: test-results
-      - store_artifacts: 
+      - store_artifacts: # Upload test summary for display in Artifacts: https://circleci.com/docs/2.0/artifacts/
           path: test-results
           destination: tr1
